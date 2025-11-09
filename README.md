@@ -134,7 +134,16 @@ The application will start on `http://localhost:8080`
 ### 4. Access the Application
 
 - **Frontend**: Open your browser and go to `http://localhost:8080`
-- **H2 Console**: `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:malldb`, Username: `sa`, Password: empty)
+- **H2 Console**: `http://localhost:8080/h2-console`
+
+#### Access H2 Database Console:
+
+1. Open your browser and go to: **http://localhost:8080/h2-console**
+2. Login with these credentials:
+   - **JDBC URL**: `jdbc:h2:mem:malldb`
+   - **User Name**: `SA`
+   - **Password**: (leave empty)
+3. Click **"Connect"**
 
 ## 👤 Test Account
 
