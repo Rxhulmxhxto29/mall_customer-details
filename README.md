@@ -2,6 +2,9 @@
 
 A comprehensive full-stack shopping mall e-commerce application built with Spring Boot backend and HTML/CSS/JavaScript frontend.
 
+## 🔗 Live Demo
+**GitHub Repository**: [https://github.com/Rxhulmxhxto29/mall_customer-details](https://github.com/Rxhulmxhxto29/mall_customer-details)
+
 ## 🚀 Features
 
 ### Customer Features
