@@ -28,6 +28,26 @@ document.getElementById('login-form')?.addEventListener('submit', async (e) => {
     }
 });
 
+// Load shops for registration
+async function loadShopsForRegistration() {
+    try {
+        const shops = await apiRequest('/shops');
+        const shopSelect = document.getElementById('shopId');
+        
+        if (shopSelect) {
+            shopSelect.innerHTML = '<option value="">Choose a shop...</option>' +
+                shops.map(shop => `<option value="${shop.shopId}">${shop.shopName}</option>`).join('');
+        }
+    } catch (error) {
+        console.error('Error loading shops:', error);
+    }
+}
+
+// Load shops when registration page loads
+if (document.getElementById('register-form')) {
+    loadShopsForRegistration();
+}
+
 // Handle registration
 document.getElementById('register-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -36,6 +56,7 @@ document.getElementById('register-form')?.addEventListener('submit', async (e) =
     const lastName = document.getElementById('lastName').value;
     const email = document.getElementById('email').value;
     const phoneNumber = document.getElementById('phoneNumber').value;
+    const shopId = document.getElementById('shopId').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const errorDiv = document.getElementById('register-error');
@@ -45,10 +66,15 @@ document.getElementById('register-form')?.addEventListener('submit', async (e) =
         return;
     }
     
+    if (!shopId) {
+        errorDiv.textContent = 'Please select a shop';
+        return;
+    }
+    
     try {
         const response = await apiRequest('/auth/register', {
             method: 'POST',
-            body: JSON.stringify({ firstName, lastName, email, phoneNumber, password })
+            body: JSON.stringify({ firstName, lastName, email, phoneNumber, shopId: parseInt(shopId), password })
         });
         
         saveAuthData(response.token, {

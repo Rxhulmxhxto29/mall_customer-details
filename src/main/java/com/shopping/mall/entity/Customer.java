@@ -43,6 +43,10 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     private CustomerStatus status = CustomerStatus.ACTIVE;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
+    
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Address> addresses = new HashSet<>();

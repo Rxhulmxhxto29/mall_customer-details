@@ -444,6 +444,88 @@ header {
     justify-content: space-between;
 }
 
+/* Shops */
+.shops-section {
+    padding: 3rem 0;
+}
+
+.shops-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.shops-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.shop-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.shop-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.shop-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.shop-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.shop-description {
+    color: #7f8c8d;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.shop-details {
+    margin: 1rem 0;
+}
+
+.shop-details p {
+    margin: 0.5rem 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.shop-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.shop-status.active {
+    background-color: #27ae60;
+    color: white;
+}
+
+.shop-status.inactive {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.shop-status.closed {
+    background-color: #e74c3c;
+    color: white;
+}
+
 /* Footer */
 footer {
     background-color: #2c3e50;

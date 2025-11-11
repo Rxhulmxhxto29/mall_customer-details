@@ -34,9 +34,13 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
+    @Autowired
+    private com.shopping.mall.repository.ShopRepository shopRepository;
+    
     @Override
     public void run(String... args) throws Exception {
         initializeRoles();
+        initializeShops();
         initializeCategories();
         initializeProducts();
         initializeTestUser();
@@ -53,6 +57,39 @@ public class DataInitializer implements CommandLineRunner {
             roleRepository.save(adminRole);
             
             System.out.println("Roles initialized");
+        }
+    }
+    
+    private void initializeShops() {
+        if (shopRepository.count() == 0) {
+            com.shopping.mall.entity.Shop shop1 = new com.shopping.mall.entity.Shop();
+            shop1.setShopName("Main Street Mall");
+            shop1.setDescription("Premier shopping destination in downtown");
+            shop1.setAddress("123 Main Street, New York, NY 10001");
+            shop1.setPhoneNumber("555-0100");
+            shop1.setEmail("info@mainstreetmall.com");
+            shop1.setStatus(com.shopping.mall.entity.Shop.ShopStatus.ACTIVE);
+            shopRepository.save(shop1);
+            
+            com.shopping.mall.entity.Shop shop2 = new com.shopping.mall.entity.Shop();
+            shop2.setShopName("City Center Plaza");
+            shop2.setDescription("Modern shopping complex with 100+ stores");
+            shop2.setAddress("456 Center Ave, New York, NY 10002");
+            shop2.setPhoneNumber("555-0200");
+            shop2.setEmail("contact@citycenterplaza.com");
+            shop2.setStatus(com.shopping.mall.entity.Shop.ShopStatus.ACTIVE);
+            shopRepository.save(shop2);
+            
+            com.shopping.mall.entity.Shop shop3 = new com.shopping.mall.entity.Shop();
+            shop3.setShopName("Riverside Shopping Center");
+            shop3.setDescription("Family-friendly mall with entertainment");
+            shop3.setAddress("789 River Road, New York, NY 10003");
+            shop3.setPhoneNumber("555-0300");
+            shop3.setEmail("hello@riversidesc.com");
+            shop3.setStatus(com.shopping.mall.entity.Shop.ShopStatus.ACTIVE);
+            shopRepository.save(shop3);
+            
+            System.out.println("Shops initialized");
         }
     }
     
@@ -113,6 +150,12 @@ public class DataInitializer implements CommandLineRunner {
             customer.setLastName("User");
             customer.setPhoneNumber("1234567890");
             customer.setStatus(Customer.CustomerStatus.ACTIVE);
+            
+            // Associate customer with a shop
+            com.shopping.mall.entity.Shop defaultShop = shopRepository.findByShopName("Main Street Mall").orElse(null);
+            if (defaultShop != null) {
+                customer.setShop(defaultShop);
+            }
             
             Role customerRole = roleRepository.findByName(Role.RoleName.ROLE_CUSTOMER).orElse(null);
             if (customerRole != null) {

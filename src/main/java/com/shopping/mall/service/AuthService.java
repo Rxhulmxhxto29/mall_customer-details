@@ -42,6 +42,9 @@ public class AuthService {
     @Autowired
     private JwtTokenProvider tokenProvider;
     
+    @Autowired
+    private com.shopping.mall.repository.ShopRepository shopRepository;
+    
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         if (customerRepository.existsByEmail(request.getEmail())) {
@@ -54,6 +57,13 @@ public class AuthService {
         customer.setFirstName(request.getFirstName());
         customer.setLastName(request.getLastName());
         customer.setPhoneNumber(request.getPhoneNumber());
+        
+        // Associate customer with shop if provided
+        if (request.getShopId() != null) {
+            com.shopping.mall.entity.Shop shop = shopRepository.findById(request.getShopId())
+                    .orElseThrow(() -> new RuntimeException("Shop not found"));
+            customer.setShop(shop);
+        }
         
         Role customerRole = roleRepository.findByName(Role.RoleName.ROLE_CUSTOMER)
                 .orElseThrow(() -> new RuntimeException("Customer Role not found"));
