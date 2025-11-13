@@ -1,6 +1,26 @@
 let allProducts = [];
 let categories = [];
 
+// Get product image URL based on product name
+function getProductImage(product) {
+    const productName = product.name.toLowerCase();
+    const imageMap = {
+        'smartphone': 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop',
+        'laptop': 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop',
+        'headphones': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop',
+        't-shirt': 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop',
+        'jeans': 'https://images.unsplash.com/photo-1542272454315-7d0ca2d8dc8f?w=400&h=300&fit=crop',
+        'jacket': 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=300&fit=crop'
+    };
+    
+    for (let key in imageMap) {
+        if (productName.includes(key)) {
+            return imageMap[key];
+        }
+    }
+    return 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop';
+}
+
 // Load categories for filter
 async function loadCategoryFilter() {
     try {
@@ -35,7 +55,9 @@ function displayProducts(products) {
     
     grid.innerHTML = products.map(product => `
         <div class="product-card">
-            <div class="product-image">📦</div>
+            <div class="product-image">
+                <img src="${getProductImage(product)}" alt="${product.name}" />
+            </div>
             <div class="product-info">
                 <h3>${product.name}</h3>
                 <p class="price">${formatCurrency(product.price)}</p>
